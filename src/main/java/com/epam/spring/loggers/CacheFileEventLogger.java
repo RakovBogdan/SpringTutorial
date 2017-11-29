@@ -23,11 +23,6 @@ public class CacheFileEventLogger extends FileEventLogger {
         }
     }
 
-    @Override
-    public void init() throws IOException {
-        super.init();
-    }
-
 
     public void destroy() {
         if (!cache.isEmpty()) {
