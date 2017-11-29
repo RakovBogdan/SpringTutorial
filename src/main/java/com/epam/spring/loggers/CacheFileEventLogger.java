@@ -1,5 +1,6 @@
 package com.epam.spring.loggers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,14 @@ public class CacheFileEventLogger extends FileEventLogger {
         cache.add(event);
 
         if (cacheSize == cache.size()) {
-            super.logEvent(event);
+            writeEventsFromCache();
             cache.clear();
         }
+    }
+
+    @Override
+    public void init() throws IOException {
+        super.init();
     }
 
 
@@ -27,13 +33,13 @@ public class CacheFileEventLogger extends FileEventLogger {
         if (!cache.isEmpty()) {
             writeEventsFromCache();
         }
+        cache.clear();
     }
 
     private void writeEventsFromCache() {
         for (Event event: cache) {
             super.logEvent(event);
         }
-        cache.clear();
     }
 
     public int getCacheSize() {
