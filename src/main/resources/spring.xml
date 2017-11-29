@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
     <bean id="client" class="com.epam.spring.beans.Client">
         <constructor-arg value="1"/>
         <constructor-arg value="John Smith"/>
@@ -14,4 +15,15 @@
         <constructor-arg ref="eventLogger"/>
     </bean>
 
+    <bean id="event" class="com.epam.spring.loggers.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+
+        <constructor-arg ref="dateFormat"/>
+
+    </bean>
+
+    <bean id="dateFormat" class="java.text.DateFormat"
+          factory-method="getDateTimeInstance"/>
 </beans>
