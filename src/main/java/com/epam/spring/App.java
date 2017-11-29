@@ -4,6 +4,7 @@ import com.epam.spring.beans.Client;
 import com.epam.spring.loggers.Event;
 import com.epam.spring.loggers.EventLogger;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App {
@@ -39,7 +40,7 @@ public class App {
     }
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
         App app = (App) context.getBean("app");
         Event event1 = (Event) context.getBean("event");
@@ -50,5 +51,6 @@ public class App {
 
         app.logEvent(event1);
         app.logEvent(event2);
+        context.close();
     }
 }
