@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="eventLogger" class="com.epam.spring.loggers.ConsoleEventLogger"/>
+    <bean id="consoleEventLogger" class="com.epam.spring.loggers.ConsoleEventLogger"/>
 
     <bean id="fileEventLogger" class="com.epam.spring.loggers.FileEventLogger"
           init-method="init">
@@ -14,6 +14,15 @@
           parent="fileEventLogger" destroy-method="destroy" init-method="init">
         <constructor-arg value="2"/>
 
+    </bean>
+
+    <bean id="combinedEventLogger" class="com.epam.spring.loggers.CombinedEventLogger">
+        <constructor-arg>
+            <list>
+                <ref bean="consoleEventLogger"/>
+                <ref bean="fileEventLogger"/>
+            </list>
+        </constructor-arg>
     </bean>
 
     <bean id="event" class="com.epam.spring.loggers.Event" scope="prototype">
